@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Utils</title>
+		
+		<style type="text/css">
+			#scroller {
+				width: 500px;
+				height: 400px;
+				padding: 20px;
+				position: relative;
+				margin: 50px auto;
+				overflow: hidden;
+			}
+
+			.texto {
+				width: 500px;
+				color: #134f3c;
+			}
+		</style>
+	</head>
+	
+	<body>
+		
+		<div id="scroller">
+			<div id="oi" class="texto">
+			</div>
+		</div>
+		
+
+		<script src="utils.js"></script>
+
+		<script type="text/javascript">
+			window.onload = function() {
+				Ajax.getJSON({
+					url: 'ajax.json',
+					complete: function(ret) {
+						console.log(ret);
+					}
+				});
+
+				var names = {
+					mes: "January",
+					mes2: "February",
+					mes3: "March"
+				};
+
+				var arr = ['January', 'February', 'March']
+
+				console.log(names)
+
+               	Utils.each(arr, function(i, value) {
+               		console.log(i, value)
+               	})
+
+				Event.bind(document, 'keypress', function (event) {
+					Event.normalise(event);
+					console.log(event.character);
+				});
+				
+			}
+		</script>
+	</body>
+</html>
