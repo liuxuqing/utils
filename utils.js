@@ -819,6 +819,38 @@
     var Valida = {};
     
     /**
+     * Validates formulário
+     * 
+     * @param { Element } form Elemento form
+     * @return Returna true caso tados os campos sejam diferentes de branco
+     * 
+     * @example <form onsubmit="return Valida.fields(this);"></form>
+     */
+    Valida.fields = function (form) {
+        var required = [];
+
+        for (var i = 0; i < form.length; i++) {
+            if (form[i].getAttribute("data-required")) {
+                required.push(form[i]);
+
+                if (form[i].value === "") {
+                    if (form[i].getAttribute("data-msg")) {
+                        alert(form[i].getAttribute("data-msg"));
+                    } else {
+                        alert("O campo " + form[i].name + " é obrigatório.");
+                    }
+
+                    form[i].focus();
+
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    };
+
+    /**
      * Validates email
      * 
      * @param { String } value Address of email in the string format
