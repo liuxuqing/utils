@@ -37,9 +37,9 @@ Utils.query('div'); // return HTML Element <div><div>
 ##### <i>Utils.fixlast(element, number, name)</i>
 Adds the fix last class
 
-`@author Yeremi Loli` (https://gist.github.com/yeremi)
-`@param { Element }` element Array List of elements
-`@param { Number }` number Amount of items for line
+`@author Yeremi Loli` <https://gist.github.com/yeremi><br />
+`@param { Element }` element Array List of elements<br />
+`@param { Number }` number Amount of items for line<br />
 `@param { String }` name Class for the last item
 
 #### @example 
@@ -64,8 +64,8 @@ Adds the fix last class
 ##### <i>Utils.hasClass(element, name)</i>
 Check if the class name exist
 
-`@param { Element }` element Selected elements
-`@param { String }` name Class names
+`@param { Element }` element Selected elements<br />
+`@param { String }` name Class names<br />
 `@return { Boolean }` Return true if class name exist
 
 #### @example 
@@ -76,7 +76,7 @@ Check if the class name exist
 ##### <i>Utils.addClass(element, name)</i>
 Adds one or more class names to the selected elements
 
-`@param { Element }` element Selected elements
+`@param { Element }` element Selected elements<br />
 `@param { String }` name Class names to the selected elements
 
 #### @example 
@@ -89,7 +89,7 @@ Adds one or more class names to the selected elements
 ##### <i>Utils.removeClass(element, name)</i>  
 Remobe one or more class names to the selected elements
 
-`@param { Element }` element Selected elements
+`@param { Element }` element Selected elements<br />
 `@param { String }` name Class names to the selected elements
 
 #### @example 
@@ -99,46 +99,4 @@ Utils.removeClass( document.getElementById('el'), 'myclass' );
 </pre>
     
 
-/**
-     * Verifica se é um objeto de um determinado tipo e retorna true ou false
-     * 
-     * @param { Object | Array | Function | String | Boolean | Number } obj Objeto a ser verificado
-     * @param { String } type Tipo de objeto para a verificação
-     * 
-     * @return True caso o objeto passado seja igual ao tipo passado
-     * @example Utils.is({}, "object"); //  retorna true
-     */
-    Utils.is = function (obj, type)
-    
-/**
-     * Retorna o tipo do objeto
-     * 
-     * @param { Object | Array | Function | String | Boolean | Number } obj Objeto a ser verificado
-     * 
-     * @return Retorna o tipo do objeto
-     * @example Utils.type({}) //  retorna "object"
-     */
-    Utils.type = function (obj)
-    
-/**
-     * ForEach pega um objeto ou array e retorna a posição e o valor em um loop
-     *
-     * @param { Object | Array } object Array ou Object para o loop
-     * @param { Function } callback Função de retorno
-     *
-     * @example var arr = ["lion", "goat", "snake"];
-     * Utils.each(arr, function(i, value) {
-     *   console.log("The ", i, " of a ", value, ".");
-     * });
-     */
-    Utils.each = function (object, callback)
-    
-/**
-     * Serialize
-     *
-     * @param { Object | Array | String } obj Objeto a ser serializado
-     * @return Retorna uma string do objeto serializado
-     *
-     * @example Utils.serialize(['utils', 'roger']); // retorna uma string ["utils", "roger"]
-     */
-    Utils.serialize = function (obj)
+
