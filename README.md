@@ -7,7 +7,7 @@ A utils functions
 -
 
 ##### <i>Utils.getCss(element, property)</i>
-####### Pega o valor de uma propriedade css e retorna o valor dessa propriedade
+Pega o valor de uma propriedade css e retorna o valor dessa propriedade
 
 `@param { Element }` element Element html<br />
 `@param  { String }` property Propriedade css
@@ -19,7 +19,7 @@ A utils functions
 
 
 ##### <i>Utils.query(selector)</i>
-####### Query selector css elements
+Query selector css elements
 
 `@param { String | Element }` selector Query selector css element to be verifiedl<br />
 `@return { Element }` Return element html
