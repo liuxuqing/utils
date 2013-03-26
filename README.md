@@ -85,48 +85,63 @@ Remobe one or more class names to the selected elements
 <pre>
 Utils.removeClass( document.getElementById('el'), 'myclass' );
 </pre>
-    
 
-/**
-     * Verifica se é um objeto de um determinado tipo e retorna true ou false
-     * 
-     * @param { Object | Array | Function | String | Boolean | Number } obj Objeto a ser verificado
-     * @param { String } type Tipo de objeto para a verificação
-     * 
-     * @return True caso o objeto passado seja igual ao tipo passado
-     * @example Utils.is({}, "object"); //  retorna true
-     */
-    Utils.is = function (obj, type)
+
+##### <i>Utils.is(obj, type)</i>
+Verifica se é um objeto de um determinado tipo e retorna true ou false
+
+`@param { Object | Array | Function | String | Boolean | Number }` obj Objeto a ser verificado<br />
+`@param { String }` type Tipo de objeto para a verificação<br />
+`@return` True caso o objeto passado seja igual ao tipo passado
+
+#### @example
+
+<pre>
+  // retorna true
+  Utils.is({}, "object");
+</pre>
+
+
     
-/**
-     * Retorna o tipo do objeto
-     * 
-     * @param { Object | Array | Function | String | Boolean | Number } obj Objeto a ser verificado
-     * 
-     * @return Retorna o tipo do objeto
-     * @example Utils.type({}) //  retorna "object"
-     */
-    Utils.type = function (obj)
-    
-/**
-     * ForEach pega um objeto ou array e retorna a posição e o valor em um loop
-     *
-     * @param { Object | Array } object Array ou Object para o loop
-     * @param { Function } callback Função de retorno
-     *
-     * @example var arr = ["lion", "goat", "snake"];
-     * Utils.each(arr, function(i, value) {
-     *   console.log("The ", i, " of a ", value, ".");
-     * });
-     */
-    Utils.each = function (object, callback)
-    
-/**
-     * Serialize
-     *
-     * @param { Object | Array | String } obj Objeto a ser serializado
-     * @return Retorna uma string do objeto serializado
-     *
-     * @example Utils.serialize(['utils', 'roger']); // retorna uma string ["utils", "roger"]
-     */
-    Utils.serialize = function (obj)
+##### <i>Utils.type(obj)</i>
+Retorna o tipo do objeto
+
+`@param { Object | Array | Function | String | Boolean | Number }` obj Objeto a ser verificado<br />
+`@return` Retorna o tipo do objeto
+
+#### @example
+
+<pre>
+  // retorna "object"
+  Utils.type({}); 
+</pre>
+
+
+
+##### <i>Utils.each(object, callback)</i>
+ForEach pega um objeto ou array e retorna a posição e o valor em um loop
+
+`@param { Object | Array }` object Array ou Object para o loop<br />
+`@param { Function }` callback Função de retorno
+
+#### @example
+<pre>
+  var arr = ["lion", "goat", "snake"];
+  
+  Utils.each(arr, function(i, value) {
+    console.log("The ", i, " of a ", value, ".");
+  });
+</pre>
+ 
+##### <i>Utils.serialize(obj)</i>
+Serialize
+
+`@param { Object | Array | String }` obj Objeto a ser serializado
+`@return` Retorna uma string do objeto serializado
+
+#### @example
+
+<pre>
+  // retorna uma string ["utils", "roger"]
+  Utils.serialize(['utils', 'roger']);
+</pre>
