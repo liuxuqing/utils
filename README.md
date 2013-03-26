@@ -145,3 +145,34 @@ Serialize
   // retorna uma string ["utils", "roger"]
   Utils.serialize(['utils', 'roger']);
 </pre>
+
+
+
+### Ajax Methods
+-
+
+
+
+### Strings Methods
+-
+
+
+### Browser Methods
+-
+
+
+### Numbers Methods
+-
+
+
+### Objects Methods
+-
+
+
+### Valida Methods
+-
+
+
+
+### Event Methods
+-
