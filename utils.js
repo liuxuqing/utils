@@ -819,7 +819,8 @@
     var Valida = {};
     
     /**
-     * Validates formulário
+     * Validates formulário os campos para serem validados devem
+     * conter o atributo data-required para msg customizadas data-msg
      * 
      * @param { Element } form Elemento form
      * @return Returna true caso tados os campos sejam diferentes de branco
