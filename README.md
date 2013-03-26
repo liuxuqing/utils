@@ -3,8 +3,6 @@ UTILS
 A utils functions
 
 
-
-
 ### Utils Methods
 -
 
@@ -20,7 +18,7 @@ Pega o valor de uma propriedade css e retorna o valor dessa propriedade
 </pre>
 
 
-<i style="color:#ccc;">Utils.query(selector)</i>
+<i style="color:#ff0;">Utils.query(selector)</i>
 Query selector css elements
 
 `@param { String | Element }` selector Query selector css element to be verified
@@ -31,7 +29,7 @@ Query selector css elements
 Utils.query('.myclass'); 
 //or 
 
-Utils.query('div'); // return element
+Utils.query('div'); // return HTML Element <div><div>
 </pre>
 
     
