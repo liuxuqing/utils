@@ -48,14 +48,14 @@ Adds the fix last class
   Utils.fixlast( array, 3, last-child );
   
   // HTML
-  <ul id="mylist">
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-  </ul>
+  &#60;ul id="mylist"&#62;
+    &#60;li&#62;&#60;/li&#62;
+    &#60;li&#62;&#60;/li&#62;
+    &#60;li&#62;&#60;/li&#62;
+    &#60;li&#62;&#60;/li&#62;
+    &#60;li&#62;&#60;/li&#62;
+    &#60;li&#62;&#60;/li&#62;
+  &#60;/ul&#62;
 </pre>
     
     
