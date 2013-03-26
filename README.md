@@ -134,7 +134,7 @@ ForEach pega um objeto ou array e retorna a posição e o valor em um loop
 ##### <i>Utils.serialize(obj)</i>
 Serialize
 
-`@param { Object | Array | String }` obj Objeto a ser serializado
+`@param { Object | Array | String }` obj Objeto a ser serializado<br />
 `@return` Retorna uma string do objeto serializado
 
 #### @example
