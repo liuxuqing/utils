@@ -14,7 +14,7 @@ Pega o valor de uma propriedade css e retorna o valor dessa propriedade
 `@param { Element }` element Element html
 `@param  { String }` property Propriedade css
 
-# example 
+#### example 
 <pre>
   Utils.getCss(mydiv, "width");
 </pre>
@@ -26,7 +26,7 @@ Query selector css elements
 `@param { String | Element }` selector Query selector css element to be verified
 `@return { Element }` Return element html
 
-# example 
+#### example 
 <pre>
 Utils.query('.myclass'); 
 //or 
