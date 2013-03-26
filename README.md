@@ -174,3 +174,10 @@ Serialize
 
 ### Event Methods
 -
+
+```
+$ cd your_repo_root/repo_name
+$ git fetch origin
+$ git checkout gh-pages
+```
+(@pjhyett), and Tom Preston-Werner (@mojombo) founded GitHub.
