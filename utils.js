@@ -437,17 +437,37 @@
         }
     };
 
-    Utils.include = function (source) {
+    /**
+     * Adiciona um ou mais script na pagina
+     *
+     * @param { String | Array } source Arquivos a incluir no header .js ou .css
+     * @param { Boolean } cache Define se o arquivo var ser adicionado com o no-cache
+     *
+     * @example Utils.include(['http://code.jquery.com/jquery-1.9.1.min.js'], true);
+     */
+    Utils.include = function (source, cache) {
+        cache = (cache && cache !== undefined) ? "?c=" + new Date().getTime() : "";
+
         source = (Utils.is(source, "string")) ? [source] : source;
 
         var i = 0, len = source.length, head = document.getElementsByTagName("head")[0];
 
         for (; i < len; i++) {
-            var script = document.createElement('script');
+            var ext = source[i].substring(source[i].lastIndexOf(".") + 1).toLowerCase();
+
+            if (ext === "js") {
+                var script = document.createElement('script');
                 script.setAttribute('type', 'text/javascript');
-                script.setAttribute('src', source[i]);
-            
-            head.appendChild(script);
+                script.setAttribute('src', source[i] + cache);
+
+                head.appendChild(script);
+            } else {
+                var style = document.createElement('link');
+                style.setAttribute('type', 'text/css');
+                style.setAttribute('rel', 'stylesheet');
+                style.setAttribute('href', source[i] + cache);
+                head.appendChild(style);
+            }
         }
     };
 
