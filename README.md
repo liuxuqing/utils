@@ -6,7 +6,7 @@ A utils functions
 ### Utils Methods
 -
 
-<i>Utils.getCss(element, property)</i>
+###### <i>Utils.getCss(element, property)</i>
 Pega o valor de uma propriedade css e retorna o valor dessa propriedade
 
 `@param { Element }` element Element html<br />
@@ -18,7 +18,7 @@ Pega o valor de uma propriedade css e retorna o valor dessa propriedade
 </pre>
 
 
-<i>Utils.query(selector)</i>
+###### <i>Utils.query(selector)</i>
 Query selector css elements
 
 `@param { String | Element }` selector Query selector css element to be verifiedl<br />
