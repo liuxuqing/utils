@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Utils by rogerluiz</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Utils</h1>
+        <p>Utils functions</p>
+
+        <p class="view"><a href="https://github.com/rogerluiz/utils">View the Project on GitHub <small>rogerluiz/utils</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/rogerluiz/utils/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/rogerluiz/utils/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/rogerluiz/utils">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>UTILS</h1>
+
+<p>A utils functions</p>
+
+<h3>Utils Methods</h3>
+
+<h2></h2>
+
+<h5><i>Utils.getCss(element, property)</i></h5>
+
+<p>Pega o valor de uma propriedade css e retorna o valor dessa propriedade</p>
+
+<p><code>@param { Element }</code> element Element html<br><code>@param  { String }</code> property Propriedade css</p>
+
+<h4><a href="https://github.com/example" class="user-mention">@example</a></h4>
+
+<pre>
+  Utils.getCss(mydiv, "width");
+</pre>
+
+<h5><i>Utils.query(selector)</i></h5>
+
+<p>Query selector css elements</p>
+
+<p><code>@param { String | Element }</code> selector Query selector css element to be verifiedl<br><code>@return { Element }</code> Return element html</p>
+
+<h4><a href="https://github.com/example" class="user-mention">@example</a></h4>
+
+<pre>
+Utils.query('.myclass');
+//or
+Utils.query('div'); // return HTML Element
+</pre>
+
+<h5><i>Utils.fixlast(element, number, name)</i></h5>
+
+<p>Adds the fix last class</p>
+
+<p><code>@author Yeremi Loli</code> <a href="https://gist.github.com/yeremi">https://gist.github.com/yeremi</a><br><code>@param { Element }</code> element Array List of elements<br><code>@param { Number }</code> number Amount of items for line<br><code>@param { String }</code> name Class for the last item</p>
+
+<h4><a href="https://github.com/example" class="user-mention">@example</a></h4>
+
+<pre>
+  var array = document.getElementById('mylist).getElementsByTagName('li');
+  Utils.fixlast( array, 3, last-child );// adds class last-child in a 3 item </pre>
+
+    
+
+<h5><i>Utils.hasClass(element, name)</i></h5>
+
+<p>Check if the class name exist</p>
+
+<p><code>@param { Element }</code> element Selected elements<br><code>@param { String }</code> name Class names<br><code>@return { Boolean }</code> Return true if class name exist</p>
+
+<h4><a href="https://github.com/example" class="user-mention">@example</a></h4>
+
+<pre>
+  Utils.hasClass( document.getElementById('el'), 'myclass' );
+</pre>
+    
+
+<h5><i>Utils.addClass(element, name)</i></h5>
+
+<p>Adds one or more class names to the selected elements</p>
+
+<p><code>@param { Element }</code> element Selected elements<br><code>@param { String }</code> name Class names to the selected elements</p>
+
+<h4><a href="https://github.com/example" class="user-mention">@example</a></h4>
+
+<pre>
+  Utils.addClass( document.getElementById('el'), 'myclass' );
+</pre>
+
+<h5><i>Utils.removeClass(element, name)</i></h5>
+
+<p>Remobe one or more class names to the selected elements</p>
+
+<p><code>@param { Element }</code> element Selected elements<br><code>@param { String }</code> name Class names to the selected elements</p>
+
+<h4><a href="https://github.com/example" class="user-mention">@example</a></h4>
+
+<pre>
+Utils.removeClass( document.getElementById('el'), 'myclass' );
+</pre>
+
+<h5><i>Utils.is(obj, type)</i></h5>
+
+<p>Verifica se é um objeto de um determinado tipo e retorna true ou false</p>
+
+<p><code>@param { Object | Array | Function | String | Boolean | Number }</code> obj Objeto a ser verificado<br><code>@param { String }</code> type Tipo de objeto para a verificação<br><code>@return</code> True caso o objeto passado seja igual ao tipo passado</p>
+
+<h4><a href="https://github.com/example" class="user-mention">@example</a></h4>
+
+<pre>
+  // retorna true
+  Utils.is({}, "object");
+</pre>
+
+<h5><i>Utils.type(obj)</i></h5>
+
+<p>Retorna o tipo do objeto</p>
+
+<p><code>@param { Object | Array | Function | String | Boolean | Number }</code> obj Objeto a ser verificado<br><code>@return</code> Retorna o tipo do objeto</p>
+
+<h4><a href="https://github.com/example" class="user-mention">@example</a></h4>
+
+<pre>
+  // retorna "object"
+  Utils.type({}); 
+</pre>
+
+<h5><i>Utils.each(object, callback)</i></h5>
+
+<p>ForEach pega um objeto ou array e retorna a posição e o valor em um loop</p>
+
+<p><code>@param { Object | Array }</code> object Array ou Object para o loop<br><code>@param { Function }</code> callback Função de retorno</p>
+
+<h4><a href="https://github.com/example" class="user-mention">@example</a></h4>
+
+<pre>
+  var arr = ["lion", "goat", "snake"];
+  
+  Utils.each(arr, function(i, value) {
+    console.log("The ", i, " of a ", value, ".");
+  });
+</pre>
+ 
+
+<h5><i>Utils.serialize(obj)</i></h5>
+
+<p>Serialize</p>
+
+<p><code>@param { Object | Array | String }</code> obj Objeto a ser serializado<br><code>@return</code> Retorna uma string do objeto serializado</p>
+
+<h4><a href="https://github.com/example" class="user-mention">@example</a></h4>
+
+<pre>
+  // retorna uma string ["utils", "roger"]
+  Utils.serialize(['utils', 'roger']);
+</pre>
+
+<h3>Ajax Methods</h3>
+
+<h2></h2>
+
+<h3>Strings Methods</h3>
+
+<h2></h2>
+
+<h3>Browser Methods</h3>
+
+<h2></h2>
+
+<h3>Numbers Methods</h3>
+
+<h2></h2>
+
+<h3>Objects Methods</h3>
+
+<h2></h2>
+
+<h3>Valida Methods</h3>
+
+<h2></h2>
+
+<h3>Event Methods</h3>
+
+<h2></h2>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/rogerluiz">rogerluiz</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
