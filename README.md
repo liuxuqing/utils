@@ -43,7 +43,6 @@ Adds the fix last class
 #### @example 
 <pre>
   var array = document.getElementById('mylist).getElementsByTagName('li');
-  
   // adds class last-child in a 3 item <li class="last-child"></li>
   Utils.fixlast( array, 3, last-child );
 </pre>
