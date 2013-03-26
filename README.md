@@ -5,8 +5,7 @@ A utils functions
 
 
 
-Utils Methods
--------------
+### Utils Methods
 
 <i>tils.getCss(element, property)</i>
 Pega o valor de uma propriedade css e retorna o valor dessa propriedade
