@@ -43,6 +43,27 @@
     };
 
     /**
+     * Adiciona style inline ao elemento
+     *
+     * @param { object } arguments Grupo de paramentros que define o estilo do elemento
+     * @example Tools('.my').setCss({ width : '200px' });
+     *
+     */
+    Utils.css = function (element, arguments) {
+        for( var prop in arguments ) {
+            if( prop === 'opacity' ) {
+                
+                element.style.filter = 'alpha(opacity=' + (arguments[prop] * 100) + ')';
+                element.style.KhtmlOpacity = arguments[prop];
+                element.style.MozOpacity = arguments[prop];
+                element.style.opacity = arguments[prop];
+            } else {
+                element.style[prop] = arguments[prop];
+            }
+        }
+    }
+
+    /**
      * Query selector css elements
      *
      * @param { String | Element } selector Query selector css element to be verified
@@ -367,20 +388,19 @@
      * });
      */
     Utils.each = function (object, callback) {
-        for (property in object) {
+       for (property in object) {
             if (Object.prototype.hasOwnProperty.call(object, property)) {
                 callback(property, object[property])
             }
         }
 
-        /*
-        var results = [], i = 0;
+        
+        /*var results = [], i = 0;
         for( ; i < object.length; i++) {
-            results[i] = callback.call( object, i, object[i] );
+            results[i] = callback( object, i, object[i] );
         }
         return results;*/
     };
-
     
     /**
      * Serialize
@@ -469,6 +489,173 @@
                 head.appendChild(style);
             }
         }
+    };
+
+    Utils.create = function(element, tagName, attrs) {
+        var tag = document.createElement(tagName);
+
+        if (attrs) {
+            Utils.each(attrs, function(key, value) {
+                if (attrs.hasOwnProperty(key)) {
+                    tag.setAttribute(key, attrs[key]);
+                }
+            });
+
+            element.appendChild(tag);
+        }
+    };
+
+    /**
+     * Pega o valor de um atributo ou seta um valor
+     *
+     * @param { string } attr Nome do atributo 
+     * @param { string } value Valor do atributo a ser setado
+     * @return Retorna o valor do atributo setado
+     */
+    Utils.attr = function(element, attr, value) {
+        // Setter
+        if (typeof value !== "undefined") {
+            Utils.each(function() {
+                element.setAttribute( attr, value );
+            });
+        } 
+        // Getter 
+        else {
+            return element.getAttribute( attr );
+        }
+    };
+
+    Utils.alert = function (message, settings) {
+        settings = settings || {};
+        console.log(settings)
+        return false;
+        this.init = function () {
+
+            if(Utils.is(settings.buttons, "undefined")) {
+
+                settings = { buttons: [
+                        { type: "submit", value: "Ok" }
+                    ]
+                };
+            }
+            console.log( settings.icon )
+            this.build();
+            this.addButton();
+            this.listeners();
+        };
+
+        this.build = function () {
+            // cria overlay
+            Utils.create(document.body, "div", {
+                'class': 'alert-overflow'
+            });
+
+            Utils.css(Utils.query('.alert-overflow'), {
+                'top': '0',
+                'left': '0',
+                'width': '100%',
+                'height': '100%',
+                'background-color': '#000',
+                'opacity': '0.3',
+                'position': 'fixed',
+                'z-index': '99998'
+            });
+
+            // cria o box do alerta
+            Utils.create(document.body, "div", {
+                'class': 'alert-box'
+            });
+
+            Utils.css(Utils.query('.alert-box'), {
+                'position': 'fixed',
+                'width': '300px',
+                'left': '50%',
+                'top': '50%',
+                'margin-left': '-150px',
+                'margin-top': '-100px',
+                'background-color': '#fff',
+                'box-shadow': '0px 2px 10px rgba(51, 51, 51, 0.3)',
+                '-webkit-box-shadow': '0px 2px 10px rgba(51, 51, 51, 0.3)',
+                '-moz-box-shadow': '0px 2px 10px rgba(51, 51, 51, 0.3)',
+                'z-index': '99999'
+            });
+
+            // 
+            Utils.query('.alert-box').innerHTML = '<div class="alert-box-message"><span class="alert-box-icon"></span>' + message + '</div>';
+            Utils.query('.alert-box').innerHTML += '<br style="clear: both;" />';
+            Utils.query('.alert-box').innerHTML += '<div class="alert-box-buttons"></div>';
+
+            
+
+            Utils.css(Utils.query('.alert-box-message'), {
+                'padding': '10px 10px 30px',
+                'font-size': '13px',
+                'min-height': '40px'
+            });
+
+            Utils.css(Utils.query('.alert-box-buttons'), {
+                'position': 'absolute',
+                'width': '290px',
+                'padding': '5px',
+                'bottom': 0,
+                'text-align': 'right',
+                'background-color': '#f8f8f8'
+            });
+
+            if(!Utils.is(settings.icon, "undefined") && settings.icon === true) {
+                Utils.css(Utils.query('.alert-box-icon'), {
+                    'width': '55px',
+                    'height': Utils.query('.alert-box-message').offsetHeight + 'px',
+                    'display': 'block',
+                    'float': 'left',
+                    'background': 'url('+icon+') no-repeat'
+                });
+            }
+            
+        };
+
+
+        this.addButton = function() {
+            var btn = settings.buttons, i = 0, len = btn.length;
+
+            for (; i < len; i++) {
+                //btn[i].value
+                //btn[i].type
+
+                Utils.query('.alert-box-buttons').innerHTML += '<input type="'+btn[i].type+'" value="' + btn[i].value + '" class="alert-box-button" />';
+            }
+        };
+
+        this.closeAlert = function() {
+            document.body.removeChild(Utils.query('.alert-overflow'));
+            document.body.removeChild(Utils.query('.alert-box'));
+        };
+
+        this.listeners = function() {
+            var _this = this,
+                btn = Utils.query('.alert-box-buttons').getElementsByTagName('input'),
+                i = 0, len = btn.length;
+            
+            for (; i < len; i++) {
+                Event.bind(btn[i], 'click', function(event) {
+                    Event.preventDefault(event);
+
+                    if(!Utils.is(settings.respond, "undefined")) {
+                        settings.respond.call(this, this.value.toLowerCase());
+                    }
+
+                    _this.closeAlert();
+                });
+            }
+        };
+
+
+        var icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAkCAYAAAD7PHgWAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNS4xIE1hY2ludG9zaCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo3ODkzMzRFNjhFNzMxMUUyQjBBN0VBMENCMzU5RERFNCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo3ODkzMzRFNzhFNzMxMUUyQjBBN0VBMENCMzU5RERFNCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjc4OTMzNEU0OEU3MzExRTJCMEE3RUEwQ0IzNTlEREU0IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjc4OTMzNEU1OEU3MzExRTJCMEE3RUEwQ0IzNTlEREU0Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+VXxr4gAAAoJJREFUeNrMmM1PE0EYxrulBbW0RT4kRjCc+NBARAUE4gkrCQdEviEiRAIKEZADBM78H9w8cfNi4sngxZDoyXjy4MW/gC+jifhM8pBMJu3uzO5s2Tf5pWn37fTZd2afeadOy8fdmMV4CMrBe1sDJiyKKwU7IAs+gSMbg8YtCnzCCt4BM7YGtSWwGqxJ4y2B+igJHAW90vtWW1W0IbAOvMnzuahiYxQEvgRNBYSvXbTA2+C1y/UXoOeiBDpgE1S45FwC20HsLIjAPjCimfe02AIzYB2kNHIvg1VaUdEEDoB+g3xhQWPF2uqqaCslyuc/wRfwj+uzSzJrhw/TO/Ar7Ao+44+r8YGGPc5q7SvXb9GSQp1iUZGNAteSyowk8+Qsg+YwBYoH44Zm7lmB5bEdlsAO8NxAkFMgbwg8si2wlFZR5ZKTkqZYvKZdLEpsgVdsChR3POyRU8OdI0ZxWZfcx+wfrQhMs3ped1wtCcyyUm4zsgIqbQgc0jTlCv7w+U2lPfK7aVmBBF4FW5rLoFLa+jIeFZRd4XoQgcs0WJ0ol6Ysw/de0cCOyJdAYaivDH2yVprupMHOdN9UoMPq1RkKTEvVND1wlZgIFAt4ysc+fZdd9j3D7w2CnG43U8bOw7R/+82nvZOGfspeULe/XOWB/9irgjmfvdtXMA0WaE0Hht/vz9d5x/NUb8tnn3gCvoNvfD3x0VltqP6pCpxVDuCm8VejWXCLNvWUmFDOsesBxInB34I/tJh2n+MIa9sDP1SBi6bNpBLXwISFPwJu0nZW5CkW/6XMxaIT4kYfnAt0eFaoj5DAGq7FeJy2Mh+LXkwK20lwcX8Ghz6fvDDijJ1R638BBgAj3UiigNqt1AAAAABJRU5ErkJggg==';
+
+        // Inicializa
+        this.init();
+
+        return this;
     };
 
     //------------------------------------
@@ -755,6 +942,41 @@
      */
     Browser.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone|ZuneWP7/i.test(userAgent);
     
+
+    Browser.cookie = function () {
+        var allCookies = document.cookie.split('; ');
+
+        for( var i = 0; i < allCookies.length; i++ ) {
+            var cookiePair = allCookies[i].split('=');
+            this[ cookiePair[0] ] = cookiePair[1];
+        }
+        
+        this.get = function() {
+            var allCookies = document.cookie.split('; ');
+
+            return allCookies;
+        };
+        
+        this.set = function( name, value, days ) {
+            if( days ) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+            } else {
+                var expires = "";
+            }
+
+            document.cookie = name + "=" + value + expires + "; path=/";
+            this[name] = value;
+        };
+        
+        this.remove = function( name ) {
+            this.create(name, '', -1);
+            this[name] = undefined;
+        }
+    };
+
+
     //------------------------------------
     // NUMBERS METHODS
     //------------------------------------
@@ -856,9 +1078,13 @@
 
                 if (form[i].value === "") {
                     if (form[i].getAttribute("data-msg")) {
-                        alert(form[i].getAttribute("data-msg"));
+                         
+                         Utils.alert(form[i].getAttribute("data-msg"), { icon: true });
+                        
                     } else {
-                        alert("O campo " + form[i].name + " é obrigatório.");
+                        
+                        Utils.alert("O campo " + form[i].name + " é obrigatório.", { icon: true });
+                        
                     }
 
                     form[i].focus();
