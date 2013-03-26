@@ -41,11 +41,11 @@ Adds the fix last class
 `@param { String }` name Class for the last item
 
 #### @example 
-<pre>
+`<pre>
   var array = document.getElementById('mylist).getElementsByTagName('li');
-  // adds class last-child in a 3 item <li class="last-child"></li>
+  
   Utils.fixlast( array, 3, last-child );
-</pre>
+</pre>`
     
     
 ##### <i>Utils.hasClass(element, name)</i>
