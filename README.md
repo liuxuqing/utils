@@ -18,7 +18,7 @@ Pega o valor de uma propriedade css e retorna o valor dessa propriedade
 </pre>
 
 
-<i style="color:#ff0;">Utils.query(selector)</i>
+<i>Utils.query(selector)</i>
 Query selector css elements
 
 `@param { String | Element }` selector Query selector css element to be verified
