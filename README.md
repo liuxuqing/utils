@@ -46,16 +46,6 @@ Adds the fix last class
   
   // adds class last-child in a 3 item <li class="last-child"></li>
   Utils.fixlast( array, 3, last-child );
-  
-  // HTML
-  &#60;ul id="mylist"&#62;
-    &#60;li&#62;&#60;/li&#62;
-    &#60;li&#62;&#60;/li&#62;
-    &#60;li&#62;&#60;/li&#62;
-    &#60;li&#62;&#60;/li&#62;
-    &#60;li&#62;&#60;/li&#62;
-    &#60;li&#62;&#60;/li&#62;
-  &#60;/ul&#62;
 </pre>
     
     
