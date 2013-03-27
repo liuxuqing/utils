@@ -228,8 +228,8 @@ Event.isNumber(event)
 ##### <i>Event.bind(element, etype, callback)</i>
 Adding event listeners to/from elements
 
-`@param { Element }` element HTML element
-`@param { String }` etype The name of the event
+`@param { Element }` element HTML element<br />
+`@param { String }` etype The name of the event<br />
 `@param { Function }` callback Event handler function object
 
 #### @example
