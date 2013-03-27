@@ -527,18 +527,14 @@
 
     Utils.alert = function (message, settings) {
         settings = settings || {};
-        console.log(settings)
-        return false;
+        
         this.init = function () {
-
             if(Utils.is(settings.buttons, "undefined")) {
-
-                settings = { buttons: [
+                settings.buttons = [
                         { type: "submit", value: "Ok" }
-                    ]
-                };
+                ];
             }
-            console.log( settings.icon )
+
             this.build();
             this.addButton();
             this.listeners();
@@ -617,7 +613,7 @@
 
         this.addButton = function() {
             var btn = settings.buttons, i = 0, len = btn.length;
-
+            console.log( settings.buttons.length )
             for (; i < len; i++) {
                 //btn[i].value
                 //btn[i].type
@@ -1084,7 +1080,7 @@
                     } else {
                         
                         Utils.alert("O campo " + form[i].name + " é obrigatório.", { icon: true });
-                        
+
                     }
 
                     form[i].focus();
