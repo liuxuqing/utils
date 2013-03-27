@@ -154,6 +154,21 @@ Abri um alerta customizado
 #### @example 
 
 <pre>
+.alert-box-button {
+  padding: 10px;
+  background-color: #29c09e;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.alert-box-button:hover, .alert-box-button:focus {
+  background-color: #25a488;
+}
+</pre>
+
+
+<pre>
 Utils.alert("msg");
 Utils.alert("msg", { icon: true });
 Utils.alert("msg", { icon: true, buttons: [{ type: "submit", value: "Ok" }] });
