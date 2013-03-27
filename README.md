@@ -179,7 +179,8 @@ Validates formulário os campos para serem validados devem conter o atributo dat
 #### @example
 
 <pre>
-  <form onsubmit="return Valida.fields(this);">
+  // no onsubmit do form adicionar
+  return Valida.fields(this);
 </pre>
 
 
