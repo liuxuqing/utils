@@ -145,6 +145,21 @@ Utils.serialize(['utils', 'roger']);
 </pre>
 
 
+##### <i>Utils.alert(message, settings)</i>
+Abri um alerta customizado
+
+`@param { String }` message Texto que ira ser exibido no alerta<br />
+`@param { Object }` settings Lista de opções para o alerta<br />
+
+#### @example 
+
+<pre>
+Utils.alert("msg");
+Utils.alert("msg", { icon: true });
+Utils.alert("msg", { icon: true, buttons: [{ type: "submit", value: "Ok" }] });
+Utils.alert("msg", { icon: true, buttons: [{ type: "submit", value: "Ok" }], respond: function(value){} });
+</pre>
+
 
 ### Ajax Methods
 -
