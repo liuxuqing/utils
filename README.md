@@ -170,14 +170,33 @@ Serialize
 ### Valida Methods
 -
 
+##### <i>Valida.fields(form)</i>
+Validates formulário os campos para serem validados devem conter o atributo data-required para msg customizadas data-msg
+
+`@param { Element }` form Elemento form<br />
+`@return` Returna true caso tados os campos sejam diferentes de branco
+
+#### @example
+
+<pre>
+  <form onsubmit="return Valida.fields(this);"></form>
+</pre>
+
+
+##### <i>Valida.mail(value)</i>
+Validates email
+
+`@param { String }` value Address of email in the string format<br />
+`@return` Returns true if an e-mail validates
+
+#### @example
+
+<pre>
+  Valida.mail('mail@gmail.com') // return true
+</pre>
+
 
 
 ### Event Methods
 -
 
-```
-$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-```
-(@pjhyett), and Tom Preston-Werner (@mojombo) founded GitHub.
