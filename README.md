@@ -42,8 +42,8 @@ Adds the fix last class
 
 #### @example 
 <pre>
-  var array = document.getElementById('mylist).getElementsByTagName('li');
-  Utils.fixlast( array, 3, last-child );// adds class last-child in a 3 item <li class="last-child"></li>
+var array = document.getElementById('mylist).getElementsByTagName('li');
+Utils.fixlast( array, 3, last-child );// adds class last-child in a 3 item <li class="last-child"></li>
 </pre>
     
     
@@ -56,7 +56,7 @@ Check if the class name exist
 
 #### @example 
 <pre>
-  Utils.hasClass( document.getElementById('el'), 'myclass' );
+Utils.hasClass( document.getElementById('el'), 'myclass' );
 </pre>
     
 ##### <i>Utils.addClass(element, name)</i>
@@ -68,7 +68,7 @@ Adds one or more class names to the selected elements
 #### @example 
 
 <pre>
-  Utils.addClass( document.getElementById('el'), 'myclass' );
+Utils.addClass( document.getElementById('el'), 'myclass' );
 </pre>
 
     
@@ -95,8 +95,8 @@ Verifica se é um objeto de um determinado tipo e retorna true ou false
 #### @example
 
 <pre>
-  // retorna true
-  Utils.is({}, "object");
+// retorna true
+Utils.is({}, "object");
 </pre>
 
 
@@ -110,8 +110,8 @@ Retorna o tipo do objeto
 #### @example
 
 <pre>
-  // retorna "object"
-  Utils.type({}); 
+// retorna "object"
+Utils.type({}); 
 </pre>
 
 
@@ -124,11 +124,11 @@ ForEach pega um objeto ou array e retorna a posição e o valor em um loop
 
 #### @example
 <pre>
-  var arr = ["lion", "goat", "snake"];
+var arr = ["lion", "goat", "snake"];
   
-  Utils.each(arr, function(i, value) {
-    console.log("The ", i, " of a ", value, ".");
-  });
+Utils.each(arr, function(i, value) {
+  console.log("The ", i, " of a ", value, ".");
+});
 </pre>
  
 ##### <i>Utils.serialize(obj)</i>
@@ -140,8 +140,8 @@ Serialize
 #### @example
 
 <pre>
-  // retorna uma string ["utils", "roger"]
-  Utils.serialize(['utils', 'roger']);
+// retorna uma string ["utils", "roger"]
+Utils.serialize(['utils', 'roger']);
 </pre>
 
 
@@ -179,8 +179,8 @@ Validates formulário os campos para serem validados devem conter o atributo dat
 #### @example
 
 <pre>
-  // no onsubmit do form adicionar
-  return Valida.fields(this);
+// no onsubmit do form adicionar
+return Valida.fields(this);
 </pre>
 
 
@@ -193,11 +193,34 @@ Validates email
 #### @example
 
 <pre>
-  Valida.mail('mail@gmail.com') // return true
+Valida.mail('mail@gmail.com') // return true
 </pre>
+
+
+##### <i>Valida.cpf(value)</i>
+Validates a cpf
+
+`@param { String | Number }` value Number or string of CPF<br />
+`@return` Returns true if an CPF validates
+
+#### @example
+<pre>
+Valida.cpf('000-000-000-00') // return false
+</pre>
+
 
 
 
 ### Event Methods
 -
 
+##### <i>Event.isNumber(event)</i>
+Check if key pressed is a number
+
+`@param { Event }` event Specifies the event type<br />
+`@return { Boolean }` Return true if key is a number false if not
+
+#### @example
+<pre>
+Event.isNumber(event)
+</pre>
