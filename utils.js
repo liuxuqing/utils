@@ -525,6 +525,19 @@
         }
     };
 
+    /**
+     * Abri um alerta customizado
+     * 
+     * @param { String } message Texto que ira ser exibido no alerta
+     * @param { Object } settings Lista de opções para o alerta
+     *
+     * @example Utils.alert("msg");
+     * @example Utils.alert("msg", { icon: true });
+     * @example Utils.alert("msg", { icon: true, buttons: [{ type: "submit", value: "Ok" }] });
+     * @example Utils.alert("msg", { icon: true, buttons: [{ type: "submit", value: "Ok" }], respond: function(value){} });
+     * 
+     * @see No style.css na linha: 1986, tem o css referente ao alert
+     */
     Utils.alert = function (message, settings) {
         settings = settings || {};
         
@@ -652,6 +665,10 @@
         this.init();
 
         return this;
+    };
+
+    Utils.placeHolder = function () {
+        //
     };
 
     //------------------------------------
