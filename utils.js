@@ -491,11 +491,20 @@
         }
     };
 
+    /**
+     * Cria um elemento html de acordo com a tag passada
+     *
+     * @param { Element } element Lugar onde o novo elemento sera aficionado
+     * @param { String } tagName String do tipo de elemeto ex: 'div', 'span'
+     * @param { Object } attrs Lista de atributos a serem adicionado na criação do objeto
+     *
+     * @return Retorna o elemento criado
+     */
     Utils.create = function(element, tagName, attrs) {
         var tag = document.createElement(tagName);
 
         if (attrs) {
-            Utils.each(attrs, function(key, value) {
+            $(attrs).each(function(key) {
                 if (attrs.hasOwnProperty(key)) {
                     tag.setAttribute(key, attrs[key]);
                 }
@@ -503,6 +512,8 @@
 
             element.appendChild(tag);
         }
+
+        return tag;
     };
 
     /**
