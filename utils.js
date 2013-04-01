@@ -143,6 +143,8 @@
         else {
             return selector;
         }
+
+
     };
     
     /**
@@ -688,10 +690,15 @@
     var Ajax = {};
     
     /**
-     * Ajax call
-     * @param { Object } options Optional, overwrite the default settings, see ajaxSettings
+     * Set content loaded by an ajax call
+     * @param { Element | String } element Can contain an element or the id of the element
+     * @param { Object } options { 
+     *     url: The url of the ajax call ( include GET vars in querystring )
+     *     type: Optional, the POST data, when set method will be set to POST
+     *     complete: ptional, callback when loading is completed
+     * }
      */
-    Ajax.call = function (options) {
+    Ajax.load = function (options) {
         // Default ajax settings
         var settings = {
             url: '',
@@ -706,61 +713,84 @@
             complete: null
         };
 
+        settings = Objects.merge(settings, options);
+
         var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        var opts = Objects.merge(settings, options);
 
         function ready() {
             if (xhr.readyState === 4) {
                 if (xhr.status == 200) {
-                    if (Utils.isFunction(opts.success)) {
-                        if(opts.datatype === "json") {
-                            opts.success.call(opts, JSON.parse(xhr.responseText));
+                    if (Utils.isFunction(settings.complete)) {
+                         if(settings.datatype === "json") {
+                            settings.complete.call(settings, JSON.parse(xhr.responseText));
                         } else {
-                             opts.success.call(opts, xhr.responseText);
+                            settings.complete.call(settings, xhr.responseText);
                         }
                     }
                 } else {
-                    if (Utils.isFunction(opts.error)) {
-                        opts.error.call(opts, xhr, xhr.status);
+                    if (Utils.isFunction(settings.error)) {
+                        settings.error.call(settings, xhr, xhr.status);
                     }
-                }
-
-                if (Utils.isFunction(opts.complete)) {
-                    if(opts.datatype === "json") {
-                        opts.complete.call(opts, JSON.parse(xhr.responseText));
-                    } else {
-                        opts.complete.call(opts, xhr.responseText);
-                    }
-                    
                 }
             }
         }
 
         // prepare options
-        if (!opts.cache) {
-            opts.url += ((opts.url.indexOf('?') > -1) ? '&' : '?') + '_nocache=' + (new Date()).getTime();
+        if (!settings.cache) {
+            settings.url += ((settings.url.indexOf('?') > -1) ? '&' : '?') + '_nocache=' + (new Date()).getTime();
         }
 
-        if (opts.data) {
-            if (opts.type === 'GET') {
-                opts.url += ((opts.url.indexOf('?') > -1 ) ? '&' : '?') + Utils.setQueryParams(opts.data);
-                opts.data = null;
+        if (settings.data) {
+            if (settings.type === 'GET') {
+                settings.url += ((settings.url.indexOf('?') > -1 ) ? '&' : '?') + Utils.setQueryParams(settings.data);
+                settings.data = null;
             } else {
-                opts.data = Utils.setQueryParams(opts.data);
+                settings.data = Utils.setQueryParams(settings.data);
             }
         }
 
-        // set request
-        xhr.open(opts.type, opts.url, opts.async);
-        xhr.setRequestHeader('Content-type', opts.contentType);
+         // set request
+        xhr.open(settings.type, settings.url, settings.async);
+        xhr.setRequestHeader('Content-type', settings.contentType);
 
-        if (opts.async) {
+        if (settings.async) {
             xhr.onreadystatechange = ready;
-            xhr.send(opts.data);
+            xhr.send(settings.data);
         } else {
-            xhr.send(opts.data);
+            xhr.send(settings.data);
             ready();
         }
+    };
+
+
+    /**
+     * Ajax GET request
+     * @param {string} url
+     * @param {string|object} data Containing GET values
+     * @param {function} success Callback when request was succesfull
+     */
+    Ajax.getJSON = function (options) {
+        var settings = {
+            url: null,
+            data: null,
+            datatype: "json",
+            complete: null
+        }
+
+        settings = Objects.merge(settings, options);
+        
+        if (Utils.isFunction(settings.data)) {
+            settings.complete = settings.data;
+            settings.data = null;
+        }
+
+        return Ajax.load({
+            url: settings.url,
+            type: 'GET',
+            datatype: settings.datatype,
+            data: settings.data,
+            complete: settings.complete
+        });
     };
 
     /**
@@ -774,55 +804,21 @@
             url: null,
             data: null,
             datatype: null,
-            success: null,
             complete: null
         }
 
         settings = Objects.merge(settings, options);
 
         if (Utils.isFunction(settings.data)) {
-            settings.success = settings.data;
+            settings.complete = settings.data;
             settings.data = null;
         }
 
-        return Ajax.call({
+        return Ajax.load({
             url: settings.url,
             type: 'GET',
             datatype: settings.datatype,
             data: settings.data,
-            success: settings.success,
-            complete: settings.complete
-        });
-    };
-
-    /**
-     * Ajax GET request
-     * @param {string} url
-     * @param {string|object} data Containing GET values
-     * @param {function} success Callback when request was succesfull
-     */
-    Ajax.getJSON = function (options) {
-        var settings = {
-            url: null,
-            data: null,
-            datatype: "json",
-            success: null,
-            complete: null
-        }
-
-        settings = Objects.merge(settings, options);
-        
-        if (Utils.isFunction(settings.data)) {
-            settings.success = settings.data;
-            settings.data = null;
-        }
-
-        return Ajax.call({
-            url: settings.url,
-            type: 'GET',
-            datatype: settings.datatype,
-            data: settings.data,
-            success: settings.success,
             complete: settings.complete
         });
     };
@@ -833,57 +829,50 @@
      * @param {string|object} data Containing post values
      * @param {function} success Callback when request was succesfull
      */
-    Ajax.post = function (url, data, success) {
+    Ajax.post = function (url, data, complete) {
         if (Utils.isFunction(data)) {
             success = data;
             data = null;
         }
 
-        return Ajax.call({
+        return Ajax.load({
             url: url,
             type: 'POST',
             data: data,
-            success: success
+            complete: complete
         });
     };
+    
 
-    /**
-     * Set content loaded by an ajax call
-     * @param { Element | String } element Can contain an element or the id of the element
-     * @param { Object } options { 
-     *     url: The url of the ajax call ( include GET vars in querystring )
-     *     type: Optional, the POST data, when set method will be set to POST
-     *     complete: ptional, callback when loading is completed
-     * }
-     */
-    Ajax.load = function (element, options) {
-        if (Utils.isString(element)) {
-            element = Utils.query(element);
-        }
+    Ajax.include = function (filename) {
+        //var included_files = filename || [];
+        var files = (Utils.isArray(filename) ? filename : [filename]);
+        console.log(files.length)
+        
+        var count = 0;
 
-        if (typeof options.type === undefined) {
-            options.type = "GET";
-        }
+        next();
 
-        Ajax.call({
-            url: options.url,
-            type: options.type ? 'POST' : 'GET',
-            data: options.type || null,
-            complete: options.complete || null,
-            success: function (data) {
-                try {
-                    element.innerHTML = data;
-                } catch(e) {
+        function next() {
+            Ajax.get({
+                url: files[0],
+                complete: function(data) {
+                    Utils.include(files[0], true);
 
-                    var ph = document.createElement( 'div' );
-                    ph.innerHTML = data;
-                    // set new html content
-                    for (var x = 0, max = ph.childNodes.length; x < max; x++) {
-                        element.appendChild(ph.childNodes[x]);
+                    count++;
+                    
+                    //console.log( ((count * files.length) / 2 ) * 100 )
+                   
+                    if (files.length > 1) {
+                        Arrays.remove(files, 0, 1);
+                        next(files);
                     }
+                   
                 }
-            }
-        });
+            });
+        }
+
+        return this;
     };
 
     //------------------------------------
@@ -1031,6 +1020,36 @@
     // ARRAY METHODS
     //------------------------------------
     var Arrays = {};
+
+    /**
+     * Remove um item do array
+     *
+     * @param { Array } array Objeto array ao qual sera removido o item
+     * @param { Number } start item que sera removido 0 é o primeito item e assim por diante
+     * @param { Number } end Sera removido quantos item 1, 2, 3...
+     * @return Retorno um novo array com a quantidade de itens removidos
+     */
+    Arrays.remove = function (array, start, end) {
+        array.splice(start, end);
+        return array;
+    };
+
+    /**
+     * Verifica se existe um item dentro do array
+     *
+     * @param { String | Number } value
+     * @param { Array } array
+     * @return Retorna true caso tenho o item
+     */
+    Arrays.inArray = function (array, value) {
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                return true;
+            }
+        }
+
+        return false;
+    };
 
     //------------------------------------
     // OBJECTS METHODS
