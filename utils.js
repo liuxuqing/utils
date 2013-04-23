@@ -1068,12 +1068,16 @@
      *          Objects.merge(settings, options); // retorno { name: "Roger", last: "Luiz" }
      */
     Objects.merge = function (first, second) {
-        var options = {};
-        for (var key in first) {
-            options[key] = Utils.is(second[key], 'undefined') ? first[key] : second[key];
+        for (var p in second) {
+            try {
+                (second[p].constructor == Object) ? first[p] = Zombie.merge(obj1[p], second[p]) : first[p] = second[p];
+            } catch(e) {
+                // Property in destination object not set; create it and set its value.
+                first[p] = second[p];
+            }
         }
 
-        return options;
+        return first;
     }
 
     /**
