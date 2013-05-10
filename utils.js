@@ -1186,6 +1186,38 @@
         return (generated !== typed) ? false : true;
     };
     
+    /**
+     * Validates a data
+     * 
+     * @param { String | Number } value data no formato 00/00/0000
+     * @return Returns true if an valide date
+     * 
+     * @example Valida.data('04/03/1986') return true
+     */
+    Valida.date = function (value) {
+    	var expReg = /^((0[1-9]|[12]\d)\/(0[1-9]|1[0-2])|30\/(0[13-9]|1[0-2])|31\/(0[13578]|1[02]))\/(19|20)?\d{2}$/;
+		var aRet = true;
+		if ( (value.match(expReg)) && (value != '')) {
+			var dia = value.substring(0,2);
+			var mes = value.substring(3,5);
+			var ano = value.substring(6,10);
+			if (mes == 4 || mes == 6 || mes == 9 || mes == 11 && dia > 30) {
+				aRet = false;
+			} else {
+				if ((ano % 4) != 0 && mes == 2 && dia > 28) {
+					aRet = false;
+				} else {
+					if ((ano%4) == 0 && mes == 2 && dia > 29)
+						aRet = false;
+				}
+			}	
+		}  else {
+			aRet = false; 
+		}
+		 
+		return aRet;
+	};
+    
     //------------------------------------
     // EVENT METHODS
     //------------------------------------
